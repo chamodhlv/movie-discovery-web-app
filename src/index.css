@@ -4,7 +4,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #030014;
+  --color-primary: #000000;
 
   --color-light-100: #cecefb;
   --color-light-200: #a8b5db;
@@ -17,7 +17,7 @@
 
   --breakpoint-xs: 480px;
 
-  --background-image-hero-pattern: url("/hero-bg.png");
+  --background-image-hero-pattern: url("/hero-bg-red.png");
 }
 
 @layer base {
