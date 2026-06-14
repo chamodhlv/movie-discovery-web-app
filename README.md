@@ -1,16 +1,66 @@
-# React + Vite
+# 🎬 React Movies App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern movie discovery application built with **React** that allows users to search, browse, and discover trending movies in real time. This project demonstrates modern React development practices, API integration, and responsive UI design.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 🔍 Search movies in real time
+- 🎥 Browse trending and popular movies
+- 📱 Fully responsive design
+- ⚡ Fast performance with Vite
+- 🎨 Clean and modern UI
+- 🔄 Dynamic data fetching from TMDB API
+- 📊 Trending movie tracking with Appwrite
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- JavaScript (ES6+)
+- Vite
+- Tailwind CSS
+- TMDB API
+- Appwrite
 
-## Expanding the ESLint configuration
+## ⚙️ Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Clone the repository
+
+```bash
+git clone https://github.com/your-username/react-movies.git
+cd react-movies
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Configure environment variables
+
+Create a `.env` file in the root directory and add:
+
+```env
+VITE_TMDB_API_KEY=your_tmdb_api_key
+VITE_APPWRITE_PROJECT_ID=your_project_id
+VITE_APPWRITE_DATABASE_ID=your_database_id
+VITE_APPWRITE_COLLECTION_ID=your_collection_id
+```
+
+### Run the application
+
+```bash
+npm run dev
+```
+
+## 📂 Project Structure
+
+```text
+src/
+├── assets/
+├── components/
+├── appwrite/
+├── App.jsx
+├── main.jsx
+└── index.css
+```
