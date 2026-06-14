@@ -1,4 +1,5 @@
 import Search from "./components/Search.jsx";
+import Spinner from "./components/Spinner.jsx";
 import { useState, useEffect } from "react";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
@@ -16,8 +17,12 @@ const API_OPTIONS = {
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [movieList, setMovieList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchMovies = async () => {
+    setIsLoading(true);
+    setErrorMessage("");
     try {
       const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
@@ -28,10 +33,18 @@ const App = () => {
       }
 
       const data = await response.json();
-      console.log(data);
+
+      if (data.response === "false") {
+        setErrorMessage(data.error || "Failed to fetch movies.");
+        setMovieList([]);
+      }
+
+      setMovieList(data.results || []);
     } catch (error) {
       console.error("Error fetching movies:", error);
       setErrorMessage("Failed to fetch movies. Please try again later.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -53,8 +66,20 @@ const App = () => {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
         <section>
-          <h2>All Movies</h2>
-          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+          <h2 className="mt-2">All Movies</h2>
+          {isLoading ? (
+            <Spinner />
+          ) : errorMessage ? (
+            <p className="text-red-500">{errorMessage}</p>
+          ) : (
+            <ul>
+              {movieList.map((movie) => (
+                <li key={movie.id}>
+                  <p className="text-white">{movie.title}</p>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
       </div>
     </main>
