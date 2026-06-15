@@ -43,8 +43,8 @@
     @apply sm:mt-10;
   }
 
-  header img {
-    @apply w-full max-w-4xl h-auto object-contain mx-auto drop-shadow-md;
+  header .hero-image {
+    @apply w-full max-w-5xl h-auto object-contain mx-auto drop-shadow-md -mt-20;
   }
 }
 
@@ -85,7 +85,7 @@
     }
 
     & img {
-      @apply absolute left-2 h-6 w-6;
+      @apply absolute left-2 top-1/2 h-6 w-6 -translate-y-1/2;
     }
 
     & input {
@@ -98,6 +98,18 @@
 
     & ul {
       @apply grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+    }
+  }
+
+  .pagination {
+    @apply flex items-center justify-center gap-5 text-white;
+
+    & button {
+      @apply rounded-lg bg-red-700 px-5 py-2 font-semibold transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-40;
+    }
+
+    & p {
+      @apply text-sm text-gray-100 sm:text-base;
     }
   }
 

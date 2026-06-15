@@ -20,24 +20,28 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [movieList, setMovieList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useDebounce(
     () => {
-      setDebouncedSearchTerm(searchTerm);
+      if (searchTerm !== debouncedSearchTerm) {
+        setDebouncedSearchTerm(searchTerm);
+        setCurrentPage(1);
+        setIsLoading(true);
+      }
     },
     500,
     [searchTerm],
   );
 
-  const fetchMovies = async (query = "") => {
-    setIsLoading(true);
-    setErrorMessage("");
+  const fetchMovies = async (query = "", page = 1) => {
     try {
       const endpoint = query
-        ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
-        : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+        ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}&page=${page}`
+        : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc&page=${page}`;
 
       const response = await fetch(endpoint, API_OPTIONS);
 
@@ -53,6 +57,8 @@ const App = () => {
       }
 
       setMovieList(data.results || []);
+      setTotalPages(Math.min(data.total_pages || 1, 500));
+      setErrorMessage("");
     } catch (error) {
       console.error("Error fetching movies:", error);
       setErrorMessage("Failed to fetch movies. Please try again later.");
@@ -62,8 +68,20 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchMovies(debouncedSearchTerm);
-  }, [debouncedSearchTerm]);
+    const requestTimer = setTimeout(() => {
+      fetchMovies(debouncedSearchTerm, currentPage);
+    }, 0);
+
+    return () => clearTimeout(requestTimer);
+  }, [debouncedSearchTerm, currentPage]);
+
+  const changePage = (newPage) => {
+    setIsLoading(true);
+    setCurrentPage(newPage);
+    document.querySelector(".all-movies")?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
 
   return (
     <main>
@@ -71,7 +89,7 @@ const App = () => {
 
       <div className="wrapper">
         <header>
-          <img src="./public/hero5.png" alt="Hero Image"></img>
+          <img className="hero-image" src="/hero5.png" alt="Hero Image" />
           <h1>
             Discover Amazing <span className="text-gradient">Movies </span>
             Without the Hassle
@@ -85,11 +103,37 @@ const App = () => {
           ) : errorMessage ? (
             <p className="text-red-500">{errorMessage}</p>
           ) : (
-            <ul>
-              {movieList.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
-            </ul>
+            <>
+              <ul>
+                {movieList.map((movie) => (
+                  <MovieCard key={movie.id} movie={movie} />
+                ))}
+              </ul>
+
+              {totalPages > 1 && (
+                <div className="pagination">
+                  <button
+                    type="button"
+                    disabled={currentPage === 1}
+                    onClick={() => changePage(currentPage - 1)}
+                  >
+                    Previous
+                  </button>
+
+                  <p>
+                    Page {currentPage} of {totalPages}
+                  </p>
+
+                  <button
+                    type="button"
+                    disabled={currentPage === totalPages}
+                    onClick={() => changePage(currentPage + 1)}
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </section>
       </div>
