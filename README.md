@@ -1,5 +1,7 @@
 # 🎬 React Movies App
 
+![App Screenshot](./screenshots/screencapture%201.png)
+
 A modern movie discovery application built with **React** that allows users to search, browse, and discover trending movies in real time. This project demonstrates modern React development practices, API integration, and responsive UI design.
 
 ## 🚀 Features
@@ -10,7 +12,6 @@ A modern movie discovery application built with **React** that allows users to s
 - ⚡ Fast performance with Vite
 - 🎨 Clean and modern UI
 - 🔄 Dynamic data fetching from TMDB API
-- 📊 Trending movie tracking with Appwrite
 
 ## 🛠️ Tech Stack
 
@@ -42,9 +43,6 @@ Create a `.env` file in the root directory and add:
 
 ```env
 VITE_TMDB_API_KEY=your_tmdb_api_key
-VITE_APPWRITE_PROJECT_ID=your_project_id
-VITE_APPWRITE_DATABASE_ID=your_database_id
-VITE_APPWRITE_COLLECTION_ID=your_collection_id
 ```
 
 ### Run the application
