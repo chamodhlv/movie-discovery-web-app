@@ -20,7 +20,6 @@ A modern movie discovery application built with **React** that allows users to s
 - Vite
 - Tailwind CSS
 - TMDB API
-- Appwrite
 
 ## ⚙️ Installation
 
@@ -57,7 +56,6 @@ npm run dev
 src/
 ├── assets/
 ├── components/
-├── appwrite/
 ├── App.jsx
 ├── main.jsx
 └── index.css
