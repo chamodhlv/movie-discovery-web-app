@@ -1,5 +1,7 @@
 # 🎬 React Movies App
 
+![App Screenshot](./screenshots/screencapture%201.png)
+
 A modern movie discovery application built with **React** that allows users to search, browse, and discover trending movies in real time. This project demonstrates modern React development practices, API integration, and responsive UI design.
 
 ## 🚀 Features
